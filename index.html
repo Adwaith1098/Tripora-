@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Tripora - flights, hotels, trains, buses and holidays in one place.">
+  <title>Tripora — Your Journey Starts Here</title>
+  <link rel="stylesheet" href="tripora.css">
+</head>
+<body>
+  <header class="navbar" id="navbar">
+    <a class="logo" href="#home"><span>✦</span> Tripora</a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Open menu">☰</button>
+    <nav id="navMenu">
+      <a href="#home">Home</a>
+      <a href="#destinations">Destinations</a>
+      <a href="#hotels">Hotels</a>
+      <a href="#packages">Packages</a>
+      <a href="#contact">Contact</a>
+      <button class="login-btn">Login / Sign Up</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <p class="eyebrow">TRAVEL • EXPLORE • DISCOVER</p>
+        <h1>Your journey<br><span>starts here.</span></h1>
+        <p class="hero-text">Search flights, hotels, trains, buses and unforgettable experiences — all in one place.</p>
+      </div>
+
+      <div class="search-card">
+        <div class="tabs" id="bookingTabs">
+          <button class="tab active" data-type="flights">✈ Flights</button>
+          <button class="tab" data-type="hotels">🏨 Hotels</button>
+          <button class="tab" data-type="trains">🚆 Trains</button>
+          <button class="tab" data-type="buses">🚌 Buses</button>
+          <button class="tab" data-type="holidays">🌴 Holidays</button>
+        </div>
+
+        <div class="trip-options" id="tripOptions">
+          <label><input type="radio" name="trip" checked> Round Trip</label>
+          <label><input type="radio" name="trip"> One Way</label>
+          <label><input type="radio" name="trip"> Multi City</label>
+        </div>
+
+        <div class="fields" id="searchFields"></div>
+        <button class="search-btn" id="searchBtn">Search Flights <span>→</span></button>
+        <p class="form-message" id="formMessage"></p>
+      </div>
+    </section>
+
+    <section class="section" id="destinations">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">TRAVEL INSPIRATION</p>
+          <h2>Popular destinations</h2>
+        </div>
+        <a href="destinations.html">Explore all →</a>
+      </div>
+      <div class="destination-grid">
+        <article class="destination-card large" style="background-image:url('https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=900&q=80')">
+          <div><span>From ₹24,999</span><h3>Dubai</h3><p>Skylines, beaches & adventure</p></div>
+        </article>
+        <article class="destination-card" style="background-image:url('https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=700&q=80')">
+          <div><span>From ₹39,999</span><h3>Paris</h3><p>Art, food & romance</p></div>
+        </article>
+        <article class="destination-card" style="background-image:url('https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=700&q=80')">
+          <div><span>From ₹19,999</span><h3>Bali</h3><p>Island escapes & culture</p></div>
+        </article>
+        <article class="destination-card" style="background-image:url('https://images.unsplash.com/photo-1522083165195-3424ed129620?auto=format&fit=crop&w=700&q=80')">
+          <div><span>From ₹29,999</span><h3>Singapore</h3><p>City lights & experiences</p></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section light" id="hotels">
+      <div class="section-heading">
+        <div><p class="eyebrow">STAY YOUR WAY</p><h2>Popular hotels</h2></div>
+        <a href="hotels.html" class="view-all">View More →</a>
+      </div>
+      <div class="hotel-grid">
+        <article class="hotel-card">
+          <img src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?auto=format&fit=crop&w=800&q=80" alt="Luxury hotel pool">
+          <div class="hotel-body"><p class="muted">Kochi, Kerala</p><h3>The Grand Palace</h3><div class="rating">★ 4.8 <span>(328 reviews)</span></div><p>Pool • Free Wi-Fi • Breakfast</p><div class="price">₹4,999 <small>/ night</small></div></div>
+        </article>
+        <article class="hotel-card">
+          <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80" alt="Modern hotel">
+          <div class="hotel-body"><p class="muted">Dubai, UAE</p><h3>Azure Downtown</h3><div class="rating">★ 4.7 <span>(512 reviews)</span></div><p>Gym • Pool • Airport shuttle</p><div class="price">₹8,499 <small>/ night</small></div></div>
+        </article>
+        <article class="hotel-card">
+          <img src="https://images.unsplash.com/photo-1539367628448-4bc5c9d171c8?auto=format&fit=crop&w=800&q=80" alt="Bali resort">
+          <div class="hotel-body"><p class="muted">Bali, Indonesia</p><h3>Ubud Garden Resort</h3><div class="rating">★ 4.9 <span>(241 reviews)</span></div><p>Spa • Breakfast • Garden</p><div class="price">₹5,799 <small>/ night</small></div></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="stats">
+      <div><strong>10K+</strong><span>Happy travelers</span></div>
+      <div><strong>500+</strong><span>Destinations</span></div>
+      <div><strong>99%</strong><span>Customer satisfaction</span></div>
+      <div><strong>24/7</strong><span>Travel support</span></div>
+    </section>
+
+    <section class="section" id="packages">
+      <div class="section-heading"><div><p class="eyebrow">PLAN SOMETHING SPECIAL</p><h2>Holiday packages</h2></div></div>
+      <a href="packages.html" class="view-all">View More Packages →</a>
+      <div class="package-grid">
+        <article class="package-card"><img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=900&q=80" alt="Kerala backwaters"><div><span>5 Days / 4 Nights</span><h3>Kerala Escape</h3><p>Backwaters, beaches and local experiences.</p><b>From ₹18,999</b></div></article>
+        <article class="package-card"><img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=900&q=80" alt="Dubai skyline"><div><span>6 Days / 5 Nights</span><h3>Dubai Adventure</h3><p>Desert safari, city tours and skyline views.</p><b>From ₹39,999</b></div></article>
+        <article class="package-card"><img src="https://images.unsplash.com/photo-1539367628448-4bc5c9d171c8?auto=format&fit=crop&w=900&q=80" alt="Bali tropical resort"><div><span>7 Days / 6 Nights</span><h3>Bali Paradise</h3><p>Temples, beaches, waterfalls and culture.</p><b>From ₹44,999</b></div></article>
+      </div>
+    </section>
+
+    <section class="why section light">
+      <div class="section-heading"><div><p class="eyebrow">TRAVEL WITH CONFIDENCE</p><h2>Why choose Tripora?</h2></div></div>
+      <div class="why-grid">
+        <div><span>✓</span><h3>Best prices</h3><p>Compare thousands of travel options in one place.</p></div>
+        <div><span>⌁</span><h3>Secure booking</h3><p>Your booking details are protected with modern security.</p></div>
+        <div><span>◉</span><h3>24/7 support</h3><p>Get help whenever you need it, wherever you travel.</p></div>
+        <div><span>↺</span><h3>Easy changes</h3><p>Flexible options are available on selected bookings.</p></div>
+      </div>
+    </section>
+
+    <section class="cta" id="contact">
+      <div><p class="eyebrow">READY TO GO?</p><h2>Make your next trip unforgettable.</h2><p>Discover more places, plan smarter and travel with confidence.</p></div>
+      <button class="cta-btn" onclick="document.querySelector('#home').scrollIntoView({behavior:'smooth'})">Start planning →</button>
+    </section>
+  </main>
+
+  <footer>
+    <!-- ================= TRIPORA INFORMATION SECTION ================= -->
+<section class="tripora-info">
+
+    <div class="tripora-info-container">
+
+        <!-- About Tripora -->
+        <div class="tripora-info-block">
+            <h3>About Tripora</h3>
+            <p>
+                Tripora is your travel companion for discovering flights, hotels,
+                trains, buses, holiday packages and exciting destinations.
+                Plan your next journey easily and make every trip memorable.
+            </p>
+
+            <a href="#">About Us</a>
+            <a href="#">Careers</a>
+            <a href="#">Contact Us</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Privacy Policy</a>
+        </div>
+
+
+        <!-- Quick Links -->
+        <div class="tripora-info-block">
+            <h3>Quick Links</h3>
+
+            <a href="#">Book Flights</a>
+            <a href="#">Book Hotels</a>
+            <a href="#">Train Tickets</a>
+            <a href="#">Bus Tickets</a>
+            <a href="#">Holiday Packages</a>
+            <a href="#">Flight Offers</a>
+            <a href="#">Hotel Offers</a>
+            <a href="#">Travel Deals</a>
+        </div>
+
+
+        <!-- Support -->
+        <div class="tripora-info-block">
+            <h3>Support</h3>
+
+            <a href="#">Help Center</a>
+            <a href="#">Customer Support</a>
+            <a href="#">Booking Assistance</a>
+            <a href="#">Cancellation & Refund</a>
+            <a href="#">Payment Support</a>
+            <a href="#">Travel FAQs</a>
+            <a href="#">Report an Issue</a>
+        </div>
+
+
+        <!-- Travel Services -->
+        <div class="tripora-info-block">
+            <h3>Travel Services</h3>
+
+            <a href="#">Domestic Flights</a>
+            <a href="#">International Flights</a>
+            <a href="#">Hotels & Resorts</a>
+            <a href="#">Trains</a>
+            <a href="#">Buses</a>
+            <a href="#">Holiday Packages</a>
+            <a href="#">Airport Transfers</a>
+        </div>
+
+
+        <!-- Popular Flight Routes -->
+        <div class="tripora-info-wide">
+            <h3>Popular Flight Routes</h3>
+
+            <div class="tripora-link-grid">
+                <a href="#">Delhi → Mumbai</a>
+                <a href="#">Mumbai → Delhi</a>
+                <a href="#">Delhi → Bangalore</a>
+                <a href="#">Bangalore → Delhi</a>
+                <a href="#">Mumbai → Bangalore</a>
+                <a href="#">Chennai → Delhi</a>
+                <a href="#">Delhi → Chennai</a>
+                <a href="#">Kochi → Bangalore</a>
+                <a href="#">Kochi → Mumbai</a>
+                <a href="#">Hyderabad → Delhi</a>
+                <a href="#">Pune → Delhi</a>
+                <a href="#">Kolkata → Mumbai</a>
+            </div>
+        </div>
+
+
+        <!-- Popular Destinations -->
+        <div class="tripora-info-wide">
+            <h3>Popular Destinations</h3>
+
+            <div class="tripora-link-grid">
+                <a href="#">Mumbai</a>
+                <a href="#">Delhi</a>
+                <a href="#">Bangalore</a>
+                <a href="#">Chennai</a>
+                <a href="#">Kochi</a>
+                <a href="#">Goa</a>
+                <a href="#">Hyderabad</a>
+                <a href="#">Jaipur</a>
+                <a href="#">Kolkata</a>
+                <a href="#">Pune</a>
+                <a href="#">Dubai</a>
+                <a href="#">Singapore</a>
+                <a href="#">London</a>
+                <a href="#">Paris</a>
+                <a href="#">Bangkok</a>
+                <a href="#">Maldives</a>
+            </div>
+        </div>
+
+
+        <!-- Popular Hotels -->
+        <div class="tripora-info-wide">
+            <h3>Popular Hotel Destinations</h3>
+
+            <div class="tripora-link-grid">
+                <a href="#">Hotels in Mumbai</a>
+                <a href="#">Hotels in Delhi</a>
+                <a href="#">Hotels in Bangalore</a>
+                <a href="#">Hotels in Goa</a>
+                <a href="#">Hotels in Kochi</a>
+                <a href="#">Hotels in Chennai</a>
+                <a href="#">Hotels in Jaipur</a>
+                <a href="#">Hotels in Hyderabad</a>
+                <a href="#">Hotels in Dubai</a>
+                <a href="#">Hotels in Singapore</a>
+                <a href="#">Hotels in London</a>
+                <a href="#">Hotels in Bangkok</a>
+            </div>
+        </div>
+
+
+        <!-- Travel Information -->
+        <div class="tripora-info-wide">
+            <h3>Travel Information</h3>
+
+            <div class="tripora-link-grid">
+                <a href="#">Best Places to Visit in India</a>
+                <a href="#">Best Beaches in India</a>
+                <a href="#">Weekend Getaways</a>
+                <a href="#">Family Holiday Destinations</a>
+                <a href="#">Honeymoon Destinations</a>
+                <a href="#">International Travel Guide</a>
+                <a href="#">Travel Tips</a>
+                <a href="#">Airport Guides</a>
+                <a href="#">Visa Information</a>
+                <a href="#">Holiday Planning Guide</a>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+    <div class="footer-top">
+      <div><a class="logo" href="#home"><span>✦</span> Tripora</a><p>Your journey starts here. Flights, stays and experiences made simple.</p></div>
+      <div><h4>Travel</h4><a href="#home">Flights</a><a href="#hotels">Hotels</a><a href="#packages">Holidays</a><a href="#home">Trains</a></div>
+      <div><h4>Company</h4><a href="#">About us</a><a href="#">Careers</a><a href="#">Blog</a><a href="#contact">Contact</a></div>
+      <div><h4>Support</h4><a href="#">Help center</a><a href="#">Cancellation</a><a href="#">Privacy</a><a href="#">Terms</a></div>
+      <div class="footer-social">
+    <h4>Follow Us</h4>
+
+    <div class="social-icons">
+        <a href="#" aria-label="Instagram">
+            <span>◎</span>
+        </a>
+
+        <a href="#" aria-label="X">
+            <span>𝕏</span>
+        </a>
+
+        <a href="#" aria-label="Facebook">
+            <span>f</span>
+        </a>
+
+        <a href="#" aria-label="YouTube">
+            <span>▶</span>
+        </a>
+
+        <a href="#" aria-label="LinkedIn">
+            <span>in</span>
+        </a>
+    </div>
+</div>
+    </div>
+  </footer>
+
+  <div class="modal" id="resultsModal">
+    <div class="results-box">
+      <button class="close" id="closeModal">×</button>
+      <p class="eyebrow">SEARCH RESULTS</p>
+      <h2 id="resultsTitle">Available options</h2>
+      <div id="resultsList"></div>
+    </div>
+  </div>
+
+  <script src="tripora.js"></script>
+</body>
+</html>

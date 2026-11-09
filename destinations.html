@@ -1,0 +1,779 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore beautiful destinations with Tripora.">
+    <title>Explore Destinations | Tripora</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --green: #087f5b;
+            --dark: #10251f;
+            --muted: #68756f;
+            --light: #f5f8f6;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #fff;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button, input {
+            font: inherit;
+        }
+
+        .navbar {
+            min-height: 76px;
+            padding: 16px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            background: white;
+            border-bottom: 1px solid #e8eee9;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .logo span {
+            color: var(--green);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .nav-links a {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .nav-links a:hover {
+            color: var(--green);
+        }
+
+        .back-home {
+            background: var(--green);
+            color: white !important;
+            padding: 11px 18px;
+            border-radius: 9px;
+        }
+
+        .hero {
+            padding: 78px 7% 65px;
+            color: white;
+            background:
+                linear-gradient(90deg, rgba(8, 30, 24, .88),
+                rgba(8, 30, 24, .35)),
+                url("https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2000&q=85")
+                center/cover;
+        }
+
+        .eyebrow {
+            color: #80e0b5;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 3px;
+            margin-bottom: 14px;
+        }
+
+        .hero h1 {
+            font-size: clamp(36px, 5vw, 60px);
+            line-height: 1.1;
+            max-width: 700px;
+            margin-bottom: 18px;
+        }
+
+        .hero h1 span {
+            color: #80e0b5;
+        }
+
+        .hero p.description {
+            color: #e0e9e4;
+            max-width: 550px;
+            margin-bottom: 30px;
+        }
+
+        .search-box {
+            max-width: 590px;
+            display: flex;
+            gap: 10px;
+            background: white;
+            border-radius: 12px;
+            padding: 8px;
+        }
+
+        .search-box input {
+            flex: 1;
+            min-width: 0;
+            padding: 12px;
+            border: none;
+            outline: none;
+            color: var(--dark);
+        }
+
+        .search-box button {
+            background: var(--green);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 0 20px;
+            cursor: pointer;
+        }
+
+        .section {
+            padding: 60px 7%;
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .section-heading .eyebrow {
+            color: var(--green);
+            margin-bottom: 8px;
+        }
+
+        .section-heading h2 {
+            font-size: clamp(26px, 3vw, 36px);
+            margin-bottom: 8px;
+        }
+
+        .section-heading p {
+            color: var(--muted);
+        }
+
+        .filters {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 32px;
+        }
+
+        .filter-btn {
+            padding: 10px 19px;
+            border: 1px solid #dce7df;
+            background: white;
+            color: var(--dark);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: .25s;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--green);
+            border-color: var(--green);
+            color: white;
+        }
+
+        .destination-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 24px;
+        }
+
+        .destination-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid #e8eee9;
+            box-shadow: 0 5px 22px rgba(20, 50, 35, .06);
+            transition: transform .3s, box-shadow .3s;
+            animation: fadeUp .5s ease both;
+        }
+
+        .destination-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 15px 35px rgba(20, 50, 35, .13);
+        }
+
+        .destination-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+            transition: transform .5s;
+        }
+
+        .destination-card:hover img {
+            transform: scale(1.045);
+        }
+
+        .image-wrap {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .category-tag {
+            position: absolute;
+            left: 14px;
+            top: 14px;
+            background: white;
+            padding: 6px 11px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .card-body {
+            padding: 19px;
+        }
+
+        .card-body h3 {
+            font-size: 21px;
+            margin-bottom: 5px;
+        }
+
+        .card-body p {
+            font-size: 14px;
+            color: var(--muted);
+            min-height: 45px;
+        }
+
+        .card-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-top: 17px;
+            padding-top: 15px;
+            border-top: 1px solid #edf1ee;
+        }
+
+        .price-label {
+            font-size: 11px;
+            color: var(--muted);
+        }
+
+        .price {
+            font-weight: 800;
+            font-size: 17px;
+        }
+
+        .details-btn {
+            border: none;
+            border-radius: 8px;
+            background: #e8f6ef;
+            color: var(--green);
+            font-weight: 700;
+            padding: 10px 12px;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .details-btn:hover {
+            background: var(--green);
+            color: white;
+        }
+
+        .no-results {
+            display: none;
+            text-align: center;
+            padding: 40px 10px;
+            color: var(--muted);
+        }
+
+        .cta {
+            margin: 0 7% 60px;
+            padding: 38px;
+            background: var(--dark);
+            color: white;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 25px;
+        }
+
+        .cta h2 {
+            font-size: clamp(22px, 3vw, 32px);
+            margin-bottom: 8px;
+        }
+
+        .cta p {
+            color: #c8d7ce;
+        }
+
+        .cta a {
+            flex-shrink: 0;
+            padding: 13px 20px;
+            background: #80e0b5;
+            color: var(--dark);
+            border-radius: 9px;
+            font-weight: 800;
+        }
+
+        footer {
+            text-align: center;
+            background: var(--light);
+            padding: 24px;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            padding: 20px;
+            background: rgba(0, 0, 0, .65);
+            z-index: 20;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.open {
+            display: flex;
+        }
+
+        .modal-box {
+            width: 100%;
+            max-width: 450px;
+            padding: 30px;
+            background: white;
+            border-radius: 16px;
+            position: relative;
+            animation: fadeUp .25s ease;
+        }
+
+        .modal-box h2 {
+            margin-bottom: 12px;
+        }
+
+        .modal-box p {
+            color: var(--muted);
+            margin-bottom: 20px;
+        }
+
+        .close-btn {
+            position: absolute;
+            right: 15px;
+            top: 10px;
+            border: none;
+            background: transparent;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        .modal-box .details-btn {
+            width: 100%;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 900px) {
+            .destination-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .hero {
+                padding-top: 60px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .navbar {
+                padding: 15px 5%;
+                flex-wrap: wrap;
+            }
+
+            .nav-links {
+                width: 100%;
+                justify-content: space-between;
+                gap: 10px;
+                flex-wrap: wrap;
+            }
+
+            .nav-links a {
+                font-size: 12px;
+            }
+
+            .section {
+                padding: 45px 5%;
+            }
+
+            .hero {
+                padding: 55px 5%;
+            }
+
+            .search-box {
+                flex-direction: column;
+            }
+
+            .search-box button {
+                padding: 13px;
+            }
+
+            .destination-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .destination-card img {
+                height: 230px;
+            }
+
+            .cta {
+                margin: 0 5% 40px;
+                padding: 26px;
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="navbar">
+        <a class="logo" href="tripora.html"><span>✦</span> Tripora</a>
+
+        <nav class="nav-links">
+            <a href="tripora.html">Home</a>
+            <a href="#destinations">Destinations</a>
+            <a href="#categories">Explore</a>
+            <a href="tripora.html#hotels">Hotels</a>
+            <a href="tripora.html#contact" class="back-home">Plan a Trip ↗</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <p class="eyebrow">YOUR NEXT ADVENTURE</p>
+            <h1>Discover places<br>that <span>inspire you.</span></h1>
+            <p class="description">
+                From peaceful mountains to vibrant cities, find a destination
+                that makes your next journey unforgettable.
+            </p>
+
+            <div class="search-box">
+                <input id="destinationSearch" type="search"
+                       placeholder="Search Goa, Paris, mountains..."
+                       aria-label="Search destinations">
+                <button id="searchButton" type="button">Search ↗</button>
+            </div>
+        </section>
+
+        <section class="section" id="destinations">
+            <div class="section-heading">
+                <p class="eyebrow">FIND YOUR PLACE</p>
+                <h2>Explore destinations</h2>
+                <p>Choose your next escape from our favourite places.</p>
+            </div>
+
+            <div class="filters" id="categories">
+                <button class="filter-btn active" data-category="all">All places</button>
+                <button class="filter-btn" data-category="beaches">🏖 Beaches</button>
+                <button class="filter-btn" data-category="mountains">⛰ Mountains</button>
+                <button class="filter-btn" data-category="cities">🏙 Cities</button>
+                <button class="filter-btn" data-category="islands">🌴 Islands</button>
+            </div>
+
+            <div class="destination-grid" id="destinationGrid">
+
+                <article class="destination-card"
+                    data-name="Goa" data-category="beaches"
+                    data-description="Relax on beautiful beaches, enjoy water sports, explore Portuguese heritage and experience Goa's lively nightlife."
+                    data-price="₹8,999">
+                    <div class="image-wrap">
+                        <img src="https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=900&q=80"
+                             alt="Goa beach and palm trees" loading="lazy">
+                        <span class="category-tag">🏖 Beach escape</span>
+                    </div>
+                    <div class="card-body">
+                        <h3>Goa, India</h3>
+                        <p>Golden beaches, coastal sunsets and vibrant nightlife.</p>
+                        <div class="card-bottom">
+                            <div><div class="price-label">Trip ideas from</div><div class="price">₹8,999</div></div>
+                            <button class="details-btn">View Details ↗</button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="destination-card"
+                    data-name="Manali" data-category="mountains"
+                    data-description="Discover snow-covered peaks, pine forests, mountain roads and exciting outdoor adventures in the Himalayas."
+                    data-price="₹12,499">
+                    <div class="image-wrap">
+                        <img src="https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=900&q=80"
+                             alt="Mountain scenery near Manali" loading="lazy">
+                        <span class="category-tag">⛰ Mountain retreat</span>
+                    </div>
+                    <div class="card-body">
+                        <h3>Manali, India</h3>
+                        <p>Mountain views, fresh air and Himalayan adventures.</p>
+                        <div class="card-bottom">
+                            <div><div class="price-label">Trip ideas from</div><div class="price">₹12,499</div></div>
+                            <button class="details-btn">View Details ↗</button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="destination-card"
+                    data-name="Jaipur" data-category="cities"
+                    data-description="Explore historic forts, royal palaces, colourful markets and the distinctive architecture of Rajasthan's Pink City."
+                    data-price="₹7,499">
+                    <div class="image-wrap">
+                        <img src="https://images.unsplash.com/photo-1599661046827-dacff0c0f09a?auto=format&fit=crop&w=900&q=80"
+                             alt="Historic architecture in Jaipur" loading="lazy">
+                        <span class="category-tag">🏙 Culture & heritage</span>
+                    </div>
+                    <div class="card-body">
+                        <h3>Jaipur, India</h3>
+                        <p>Royal palaces, colourful bazaars and rich heritage.</p>
+                        <div class="card-bottom">
+                            <div><div class="price-label">Trip ideas from</div><div class="price">₹7,499</div></div>
+                            <button class="details-btn">View Details ↗</button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="destination-card"
+                    data-name="Munnar" data-category="mountains"
+                    data-description="Enjoy rolling tea plantations, misty hills, scenic viewpoints and a peaceful escape into Kerala's green landscapes."
+                    data-price="₹6,999">
+                    <div class="image-wrap">
+                        <img src="https://images.unsplash.com/photo-1593693411515-c20261bcad6e?auto=format&fit=crop&w=900&q=80"
+                             alt="Green tea plantations in Kerala" loading="lazy">
+                        <span class="category-tag">🌿 Nature escape</span>
+                    </div>
+                    <div class="card-body">
+                        <h3>Munnar, India</h3>
+                        <p>Tea gardens, misty hills and peaceful landscapes.</p>
+                        <div class="card-bottom">
+                            <div><div class="price-label">Trip ideas from</div><div class="price">₹6,999</div></div>
+                            <button class="details-btn">View Details ↗</button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="destination-card"
+                    data-name="Dubai" data-category="cities"
+                    data-description="Experience impressive skyscrapers, desert safaris, modern shopping districts and memorable city attractions."
+                    data-price="₹24,999">
+                    <div class="image-wrap">
+                        <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=900&q=80"
+                             alt="Dubai skyline" loading="lazy">
+                        <span class="category-tag">✨ Modern city</span>
+                    </div>
+                    <div class="card-body">
+                        <h3>Dubai, UAE</h3>
+                        <p>Iconic skylines, desert adventures and luxury.</p>
+                        <div class="card-bottom">
+                            <div><div class="price-label">Trip ideas from</div><div class="price">₹24,999</div></div>
+                            <button class="details-btn">View Details ↗</button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="destination-card"
+                    data-name="Paris" data-category="cities"
+                    data-description="Visit world-famous landmarks, explore art museums, enjoy French cafés and stroll through charming streets."
+                    data-price="₹39,999">
+                    <div class="image-wrap">
+                        <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=900&q=80"
+                             alt="Paris city and Eiffel Tower" loading="lazy">
+                        <span class="category-tag">❤️ Art & romance</span>
+                    </div>
+                    <div class="card-body">
+                        <h3>Paris, France</h3>
+                        <p>Elegant streets, famous landmarks and cafés.</p>
+                        <div class="card-bottom">
+                            <div><div class="price-label">Trip ideas from</div><div class="price">₹39,999</div></div>
+                            <button class="details-btn">View Details ↗</button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="destination-card"
+                    data-name="Bali" data-category="islands"
+                    data-description="Discover tropical beaches, lush rice terraces, waterfalls, temples and relaxing island stays in Indonesia."
+                    data-price="₹19,999">
+                    <div class="image-wrap">
+                        <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=900&q=80"
+                             alt="Tropical Bali landscape" loading="lazy">
+                        <span class="category-tag">🌴 Island paradise</span>
+                    </div>
+                    <div class="card-body">
+                        <h3>Bali, Indonesia</h3>
+                        <p>Tropical scenery, temples and island adventures.</p>
+                        <div class="card-bottom">
+                            <div><div class="price-label">Trip ideas from</div><div class="price">₹19,999</div></div>
+                            <button class="details-btn">View Details ↗</button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="destination-card"
+                    data-name="Singapore" data-category="cities"
+                    data-description="Explore futuristic gardens, waterfront attractions, delicious street food and a lively multicultural city."
+                    data-price="₹29,999">
+                    <div class="image-wrap">
+                        <img src="https://images.unsplash.com/photo-1522083165195-3424ed129620?auto=format&fit=crop&w=900&q=80"
+                             alt="Singapore city skyline" loading="lazy">
+                        <span class="category-tag">🌆 City adventure</span>
+                    </div>
+                    <div class="card-body">
+                        <h3>Singapore</h3>
+                        <p>Futuristic attractions, gardens and great food.</p>
+                        <div class="card-bottom">
+                            <div><div class="price-label">Trip ideas from</div><div class="price">₹29,999</div></div>
+                            <button class="details-btn">View Details ↗</button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <p class="no-results" id="noResults">
+                No destinations found. Try another search.
+            </p>
+        </section>
+
+        <section class="cta">
+            <div>
+                <h2>Your next story starts somewhere.</h2>
+                <p>Explore the world, one destination at a time.</p>
+            </div>
+            <a href="tripora.html#home">Plan your journey ↗</a>
+        </section>
+    </main>
+
+    <footer>
+        <a class="logo" href="tripora.html"><span>✦</span> Tripora</a>
+        <p>Discover more. Travel better. Make memories.</p>
+    </footer>
+
+    <div class="modal" id="detailsModal" role="dialog"
+         aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-box">
+            <button class="close-btn" id="closeModal" aria-label="Close">×</button>
+            <p class="eyebrow">DESTINATION GUIDE</p>
+            <h2 id="modalTitle">Destination</h2>
+            <p id="modalDescription"></p>
+            <div class="price" id="modalPrice"></div>
+            <p class="price-label">Illustrative starting price; not a live booking quote.</p>
+            <button class="details-btn" id="modalDone">Continue exploring</button>
+        </div>
+    </div>
+
+    <script>
+        const searchInput = document.getElementById("destinationSearch");
+        const searchButton = document.getElementById("searchButton");
+        const cards = [...document.querySelectorAll(".destination-card")];
+        const filterButtons = [...document.querySelectorAll(".filter-btn")];
+        const noResults = document.getElementById("noResults");
+
+        let activeCategory = "all";
+
+        function filterDestinations() {
+            const searchText = searchInput.value.trim().toLowerCase();
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const name = card.dataset.name.toLowerCase();
+                const description = card.querySelector(".card-body p")
+                    .textContent.toLowerCase();
+                const category = card.dataset.category;
+
+                const matchesSearch =
+                    name.includes(searchText) ||
+                    description.includes(searchText);
+
+                const matchesCategory =
+                    activeCategory === "all" ||
+                    category === activeCategory;
+
+                const show = matchesSearch && matchesCategory;
+                card.style.display = show ? "" : "none";
+
+                if (show) visibleCount++;
+            });
+
+            noResults.style.display = visibleCount === 0 ? "block" : "none";
+        }
+
+        searchInput.addEventListener("input", filterDestinations);
+        searchButton.addEventListener("click", filterDestinations);
+
+        searchInput.addEventListener("keydown", event => {
+            if (event.key === "Enter") filterDestinations();
+        });
+
+        filterButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                filterButtons.forEach(item => item.classList.remove("active"));
+                button.classList.add("active");
+                activeCategory = button.dataset.category;
+                filterDestinations();
+            });
+        });
+
+        const modal = document.getElementById("detailsModal");
+        const modalTitle = document.getElementById("modalTitle");
+        const modalDescription = document.getElementById("modalDescription");
+        const modalPrice = document.getElementById("modalPrice");
+
+        function closeDetails() {
+            modal.classList.remove("open");
+        }
+
+        cards.forEach(card => {
+            card.querySelector(".details-btn").addEventListener("click", () => {
+                modalTitle.textContent = card.dataset.name;
+                modalDescription.textContent = card.dataset.description;
+                modalPrice.textContent = "Trip ideas from " + card.dataset.price;
+                modal.classList.add("open");
+                document.getElementById("closeModal").focus();
+            });
+        });
+
+        document.getElementById("closeModal")
+            .addEventListener("click", closeDetails);
+
+        document.getElementById("modalDone")
+            .addEventListener("click", closeDetails);
+
+        modal.addEventListener("click", event => {
+            if (event.target === modal) closeDetails();
+        });
+
+        document.addEventListener("keydown", event => {
+            if (event.key === "Escape") closeDetails();
+        });
+    </script>
+</body>
+</html>

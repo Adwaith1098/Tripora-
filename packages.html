@@ -1,0 +1,561 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holiday Packages | Tripora</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f7f9fc;
+            color: #172b4d;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 7%;
+            background: white;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, .05);
+        }
+
+        .logo {
+            color: #1479ff;
+            font-size: 27px;
+            font-weight: 800;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .nav-links a {
+            font-size: 14px;
+            font-weight: 600;
+            transition: color .3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links .active {
+            color: #1479ff;
+        }
+
+        /* Hero */
+        .hero {
+            padding: 75px 7%;
+            color: white;
+            background:
+                linear-gradient(90deg, rgba(9, 28, 55, .85),
+                rgba(9, 28, 55, .25)),
+                url("https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1800&q=85")
+                center/cover;
+        }
+
+        .hero-content {
+            max-width: 650px;
+        }
+
+        .hero span {
+            color: #7db5ff;
+            font-weight: 700;
+            letter-spacing: 2px;
+            font-size: 12px;
+        }
+
+        .hero h1 {
+            font-size: clamp(36px, 5vw, 58px);
+            margin: 18px 0;
+            line-height: 1.15;
+        }
+
+        .hero p {
+            line-height: 1.8;
+            color: #e3eaf5;
+            max-width: 520px;
+        }
+
+        .hero-btn {
+            display: inline-block;
+            margin-top: 25px;
+            background: #1479ff;
+            color: white;
+            padding: 14px 24px;
+            border-radius: 8px;
+            font-weight: 700;
+            transition: .3s;
+        }
+
+        .hero-btn:hover {
+            background: #0863d9;
+            transform: translateY(-2px);
+        }
+
+        /* Packages section */
+        .packages-section {
+            padding: 65px 7%;
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .section-heading span {
+            color: #1479ff;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        .section-heading h2 {
+            font-size: clamp(27px, 4vw, 36px);
+            margin: 12px 0;
+        }
+
+        .section-heading p {
+            color: #718096;
+            line-height: 1.7;
+        }
+
+        .filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 35px;
+        }
+
+        .filter-btn {
+            padding: 10px 18px;
+            border: 1px solid #dce5f1;
+            border-radius: 25px;
+            background: white;
+            color: #344563;
+            cursor: pointer;
+            font-weight: 600;
+            transition: .25s;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: #1479ff;
+            color: white;
+            border-color: #1479ff;
+        }
+
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 25px;
+        }
+
+        .package-card {
+            background: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 28px rgba(20, 39, 70, .08);
+            transition: transform .3s ease, box-shadow .3s ease;
+        }
+
+        .package-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 32px rgba(20, 39, 70, .14);
+        }
+
+        .package-image {
+            position: relative;
+            height: 230px;
+            overflow: hidden;
+        }
+
+        .package-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .4s ease;
+        }
+
+        .package-card:hover .package-image img {
+            transform: scale(1.05);
+        }
+
+        .tag {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: white;
+            color: #1479ff;
+            padding: 7px 11px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .package-info {
+            padding: 20px;
+        }
+
+        .package-info h3 {
+            font-size: 21px;
+            margin-bottom: 10px;
+        }
+
+        .package-info p {
+            font-size: 13px;
+            line-height: 1.7;
+            color: #718096;
+            margin-bottom: 15px;
+        }
+
+        .duration {
+            font-size: 12px;
+            color: #718096;
+            margin-bottom: 15px;
+        }
+
+        .package-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            border-top: 1px solid #edf1f6;
+            padding-top: 16px;
+        }
+
+        .price small {
+            display: block;
+            font-size: 11px;
+            color: #718096;
+            margin-bottom: 4px;
+        }
+
+        .price strong {
+            color: #1479ff;
+            font-size: 20px;
+        }
+
+        .book-btn {
+            display: inline-block;
+            background: #1479ff;
+            color: white;
+            padding: 11px 15px;
+            border-radius: 7px;
+            font-size: 12px;
+            font-weight: 700;
+            transition: .3s;
+        }
+
+        .book-btn:hover {
+            background: #0863d9;
+        }
+
+        .empty-message {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 35px;
+            color: #718096;
+        }
+
+        /* Bottom banner */
+        .bottom-banner {
+            margin: 0 7% 65px;
+            padding: 38px;
+            border-radius: 16px;
+            background: #e9f2ff;
+            text-align: center;
+        }
+
+        .bottom-banner h2 {
+            margin-bottom: 12px;
+        }
+
+        .bottom-banner p {
+            color: #64748b;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .bottom-banner a {
+            display: inline-block;
+            padding: 13px 22px;
+            background: #1479ff;
+            color: white;
+            border-radius: 8px;
+            font-weight: 700;
+        }
+
+        footer {
+            padding: 25px 7%;
+            background: #10213b;
+            color: #cbd5e1;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        footer a {
+            color: white;
+        }
+
+        @media (max-width: 900px) {
+            .packages-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 600px) {
+            .navbar {
+                flex-direction: column;
+                gap: 18px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+
+            .hero {
+                padding: 60px 7%;
+            }
+
+            .packages-section {
+                padding: 45px 5%;
+            }
+
+            .packages-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .bottom-banner {
+                margin: 0 5% 45px;
+                padding: 28px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <a href="tripora.html" class="logo">✦ Tripora</a>
+
+        <div class="nav-links">
+            <a href="tripora.html">Home</a>
+            <a href="destinations.html">Destinations</a>
+            <a href="hotels.html">Hotels</a>
+            <a href="packages.html" class="active">Packages</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <span>YOUR NEXT ADVENTURE STARTS HERE</span>
+            <h1>Find Your Perfect Holiday</h1>
+            <p>
+                Discover beautiful destinations, unforgettable experiences,
+                and carefully selected holiday packages for your next journey.
+            </p>
+            <a href="#all-packages" class="hero-btn">Explore Packages →</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="packages-section" id="all-packages">
+
+            <div class="section-heading">
+                <span>EXPLORE & DISCOVER</span>
+                <h2>Popular Holiday Packages</h2>
+                <p>Choose your next escape from our handpicked travel experiences.</p>
+            </div>
+
+            <div class="filters">
+                <button class="filter-btn active" data-filter="all">All Packages</button>
+                <button class="filter-btn" data-filter="beach">Beach</button>
+                <button class="filter-btn" data-filter="mountain">Mountains</button>
+                <button class="filter-btn" data-filter="adventure">Adventure</button>
+                <button class="filter-btn" data-filter="romantic">Romantic</button>
+            </div>
+
+            <div class="packages-grid">
+
+                <article class="package-card" data-category="beach">
+                    <div class="package-image">
+                        <img src="https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=800&q=80"
+                             alt="Beautiful beach in Goa" loading="lazy">
+                        <span class="tag">Beach Escape</span>
+                    </div>
+                    <div class="package-info">
+                        <h3>Goa Getaway</h3>
+                        <p>Enjoy sunny beaches, coastal views, local food and relaxing evenings.</p>
+                        <div class="duration">◷ 3 Days / 2 Nights</div>
+                        <div class="package-bottom">
+                            <div class="price">
+                                <small>Starting from</small>
+                                <strong>₹6,999</strong>
+                            </div>
+                            <a href="tripora.html#contact" class="book-btn">Book Now</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="package-card" data-category="mountain">
+                    <div class="package-image">
+                        <img src="https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=800&q=80"
+                             alt="Mountain landscape" loading="lazy">
+                        <span class="tag">Nature</span>
+                    </div>
+                    <div class="package-info">
+                        <h3>Manali Escape</h3>
+                        <p>Explore scenic mountains, peaceful valleys and refreshing hill stations.</p>
+                        <div class="duration">◷ 5 Days / 4 Nights</div>
+                        <div class="package-bottom">
+                            <div class="price">
+                                <small>Starting from</small>
+                                <strong>₹12,499</strong>
+                            </div>
+                            <a href="tripora.html#contact" class="book-btn">Book Now</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="package-card" data-category="romantic">
+                    <div class="package-image">
+                        <img src="https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=800&q=80"
+                             alt="Tropical island getaway" loading="lazy">
+                        <span class="tag">Romantic</span>
+                    </div>
+                    <div class="package-info">
+                        <h3>Maldives Retreat</h3>
+                        <p>Experience tropical waters, island views and a peaceful romantic escape.</p>
+                        <div class="duration">◷ 4 Days / 3 Nights</div>
+                        <div class="package-bottom">
+                            <div class="price">
+                                <small>Starting from</small>
+                                <strong>₹24,999</strong>
+                            </div>
+                            <a href="tripora.html#contact" class="book-btn">Book Now</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="package-card" data-category="adventure">
+                    <div class="package-image">
+                        <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80"
+                             alt="High mountain peaks" loading="lazy">
+                        <span class="tag">Adventure</span>
+                    </div>
+                    <div class="package-info">
+                        <h3>Himalayan Adventure</h3>
+                        <p>Discover mountain trails, breathtaking landscapes and outdoor adventures.</p>
+                        <div class="duration">◷ 6 Days / 5 Nights</div>
+                        <div class="package-bottom">
+                            <div class="price">
+                                <small>Starting from</small>
+                                <strong>₹15,999</strong>
+                            </div>
+                            <a href="tripora.html#contact" class="book-btn">Book Now</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="package-card" data-category="beach">
+                    <div class="package-image">
+                        <img src="https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?auto=format&fit=crop&w=800&q=80"
+                             alt="Tropical beach with clear water" loading="lazy">
+                        <span class="tag">Island Life</span>
+                    </div>
+                    <div class="package-info">
+                        <h3>Andaman Discovery</h3>
+                        <p>Explore island beaches, clear waters and beautiful coastal scenery.</p>
+                        <div class="duration">◷ 5 Days / 4 Nights</div>
+                        <div class="package-bottom">
+                            <div class="price">
+                                <small>Starting from</small>
+                                <strong>₹18,499</strong>
+                            </div>
+                            <a href="tripora.html#contact" class="book-btn">Book Now</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="package-card" data-category="mountain">
+                    <div class="package-image">
+                        <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80"
+                             alt="Scenic countryside landscape" loading="lazy">
+                        <span class="tag">Relaxation</span>
+                    </div>
+                    <div class="package-info">
+                        <h3>Kerala Nature Tour</h3>
+                        <p>Enjoy green landscapes, peaceful hill views and a refreshing nature trip.</p>
+                        <div class="duration">◷ 4 Days / 3 Nights</div>
+                        <div class="package-bottom">
+                            <div class="price">
+                                <small>Starting from</small>
+                                <strong>₹9,999</strong>
+                            </div>
+                            <a href="tripora.html#contact" class="book-btn">Book Now</a>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <section class="bottom-banner">
+            <h2>Your Next Journey Awaits</h2>
+            <p>Still deciding? Explore our destinations and find the perfect place for your next trip.</p>
+            <a href="destinations.html">Explore Destinations →</a>
+        </section>
+    </main>
+
+    <footer>
+        <p>✦ Tripora — Your journey starts here.</p>
+        <p style="margin-top: 10px;">
+            <a href="tripora.html">Home</a> ·
+            <a href="destinations.html">Destinations</a> ·
+            <a href="hotels.html">Hotels</a> ·
+            <a href="packages.html">Packages</a>
+        </p>
+    </footer>
+
+    <script>
+        const filterButtons = document.querySelectorAll(".filter-btn");
+        const packageCards = document.querySelectorAll(".package-card");
+
+        filterButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                const selectedFilter = button.dataset.filter;
+
+                filterButtons.forEach(btn => btn.classList.remove("active"));
+                button.classList.add("active");
+
+                packageCards.forEach(card => {
+                    const matches =
+                        selectedFilter === "all" ||
+                        card.dataset.category === selectedFilter;
+
+                    card.style.display = matches ? "" : "none";
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>

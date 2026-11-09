@@ -1,0 +1,618 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotels | Tripora</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f8fc;
+            color: #183044;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 7%;
+            background: white;
+            box-shadow: 0 3px 15px #0000000d;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 27px;
+            font-weight: bold;
+            color: #087f8c;
+            text-decoration: none;
+        }
+
+        nav .links {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        nav .links a {
+            text-decoration: none;
+            color: #183044;
+            font-weight: 600;
+        }
+
+        nav .links a:hover {
+            color: #087f8c;
+        }
+
+        .hero {
+            padding: 65px 7% 85px;
+            text-align: center;
+            color: white;
+            background: linear-gradient(120deg, #064e64, #0c9b91);
+        }
+
+        .hero h1 {
+            font-size: clamp(32px, 5vw, 48px);
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            margin-bottom: 30px;
+            line-height: 1.7;
+        }
+
+        .search-box {
+            max-width: 850px;
+            margin: auto;
+            padding: 15px;
+            background: white;
+            border-radius: 14px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        input, select {
+            flex: 1;
+            min-width: 150px;
+            padding: 14px;
+            border: 1px solid #dce4e9;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        button {
+            border: none;
+            border-radius: 8px;
+            padding: 14px 20px;
+            background: #087f8c;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.25s;
+        }
+
+        button:hover {
+            background: #05636d;
+            transform: translateY(-2px);
+        }
+
+        .container {
+            width: 86%;
+            max-width: 1200px;
+            margin: 55px auto;
+        }
+
+        .section-heading {
+            margin-bottom: 25px;
+        }
+
+        .section-heading h2 {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .section-heading p {
+            color: #657786;
+            line-height: 1.6;
+        }
+
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .filters input,
+        .filters select {
+            background: white;
+        }
+
+        .hotel-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 25px;
+        }
+
+        .hotel-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 22px #1830440d;
+            transition: 0.3s;
+        }
+
+        .hotel-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 12px 28px #1830441c;
+        }
+
+        .hotel-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .hotel-info {
+            padding: 20px;
+        }
+
+        .hotel-info h3 {
+            margin-bottom: 10px;
+            font-size: 21px;
+        }
+
+        .location {
+            color: #657786;
+            margin-bottom: 12px;
+        }
+
+        .rating {
+            color: #d99000;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .amenities {
+            color: #526777;
+            font-size: 14px;
+            line-height: 1.8;
+            min-height: 50px;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-top: 18px;
+            padding-top: 15px;
+            border-top: 1px solid #edf0f2;
+        }
+
+        .price {
+            font-size: 20px;
+            font-weight: bold;
+            color: #087f8c;
+        }
+
+        .price small {
+            display: block;
+            font-size: 12px;
+            font-weight: normal;
+            color: #657786;
+            margin-top: 4px;
+        }
+
+        .details-btn {
+            padding: 11px 14px;
+        }
+
+        .empty {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 40px;
+            background: white;
+            border-radius: 12px;
+            color: #657786;
+        }
+
+        footer {
+            text-align: center;
+            padding: 28px 15px;
+            background: #102c3c;
+            color: white;
+            line-height: 1.8;
+        }
+
+        footer a {
+            color: #71e0d1;
+            text-decoration: none;
+        }
+
+        dialog {
+            border: none;
+            border-radius: 15px;
+            padding: 28px;
+            width: min(450px, 90%);
+            margin: auto;
+            color: #183044;
+        }
+
+        dialog::backdrop {
+            background: #0009;
+        }
+
+        dialog h2 {
+            margin-bottom: 15px;
+        }
+
+        dialog p {
+            margin: 12px 0;
+            line-height: 1.6;
+        }
+
+        .close-btn {
+            margin-top: 15px;
+        }
+
+        @media (max-width: 900px) {
+            .hotel-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            nav {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hotel-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                width: 90%;
+                margin: 35px auto;
+            }
+
+            .hero {
+                padding: 45px 5% 60px;
+            }
+
+            nav .links {
+                justify-content: center;
+                gap: 15px;
+            }
+
+            .hotel-card img {
+                height: 210px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <a href="tripora.html" class="logo">✦ Tripora</a>
+
+        <div class="links">
+            <a href="tripora.html">Home</a>
+            <a href="destinations.html">Destinations</a>
+            <a href="#hotels">Hotels</a>
+            <a href="tripora.html#packages">Packages</a>
+            <a href="tripora.html#contact">Contact</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1>Find Your Perfect Stay</h1>
+        <p>Discover comfortable stays, beautiful resorts, and unforgettable hotel experiences.</p>
+
+        <form class="search-box" id="searchForm">
+            <input
+                type="text"
+                id="destinationSearch"
+                placeholder="Where do you want to stay?"
+                aria-label="Search hotel destination"
+            >
+
+            <select id="ratingSearch" aria-label="Minimum hotel rating">
+                <option value="0">Any rating</option>
+                <option value="4">4+ stars</option>
+                <option value="4.5">4.5+ stars</option>
+            </select>
+
+            <button type="submit">Search Hotels</button>
+        </form>
+    </section>
+
+    <main class="container" id="hotels">
+        <div class="section-heading">
+            <h2>Popular Hotels</h2>
+            <p>Explore handpicked stays for your next adventure.</p>
+        </div>
+
+        <div class="filters">
+            <input
+                type="number"
+                id="maxPrice"
+                placeholder="Maximum price per night (₹)"
+                min="1"
+                aria-label="Maximum price per night"
+            >
+
+            <select id="sortPrice" aria-label="Sort hotels by price">
+                <option value="default">Sort by price</option>
+                <option value="low">Price: Low to High</option>
+                <option value="high">Price: High to Low</option>
+            </select>
+        </div>
+
+        <div class="hotel-grid" id="hotelGrid">
+
+            <article class="hotel-card"
+                data-name="grand palace hotel"
+                data-city="goa"
+                data-rating="4.8"
+                data-price="4500">
+                <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=900&q=80"
+                     alt="Luxury hotel with a swimming pool">
+                <div class="hotel-info">
+                    <h3>Grand Palace Hotel</h3>
+                    <p class="location">📍 Goa, India</p>
+                    <p class="rating">★ 4.8 / 5</p>
+                    <p class="amenities">🏊 Swimming Pool · 📶 Free Wi-Fi · 🍽️ Restaurant</p>
+                    <div class="price-row">
+                        <p class="price">₹4,500<small>per night · sample price</small></p>
+                        <button class="details-btn" type="button"
+                            data-hotel="Grand Palace Hotel">Details</button>
+                    </div>
+                </div>
+            </article>
+
+            <article class="hotel-card"
+                data-name="mountain view resort"
+                data-city="manali"
+                data-rating="4.6"
+                data-price="3200">
+                <img src="https://images.unsplash.com/photo-1518732714860-b62714ce0c59?auto=format&fit=crop&w=900&q=80"
+                     alt="Resort surrounded by mountains">
+                <div class="hotel-info">
+                    <h3>Mountain View Resort</h3>
+                    <p class="location">📍 Manali, India</p>
+                    <p class="rating">★ 4.6 / 5</p>
+                    <p class="amenities">🏔️ Mountain View · 📶 Free Wi-Fi · ☕ Café</p>
+                    <div class="price-row">
+                        <p class="price">₹3,200<small>per night · sample price</small></p>
+                        <button class="details-btn" type="button"
+                            data-hotel="Mountain View Resort">Details</button>
+                    </div>
+                </div>
+            </article>
+
+            <article class="hotel-card"
+                data-name="royal heritage stay"
+                data-city="jaipur"
+                data-rating="4.7"
+                data-price="3800">
+                <img src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?auto=format&fit=crop&w=900&q=80"
+                     alt="Elegant heritage-style hotel">
+                <div class="hotel-info">
+                    <h3>Royal Heritage Stay</h3>
+                    <p class="location">📍 Jaipur, India</p>
+                    <p class="rating">★ 4.7 / 5</p>
+                    <p class="amenities">🏰 Heritage Style · 🍽️ Restaurant · 📶 Free Wi-Fi</p>
+                    <div class="price-row">
+                        <p class="price">₹3,800<small>per night · sample price</small></p>
+                        <button class="details-btn" type="button"
+                            data-hotel="Royal Heritage Stay">Details</button>
+                    </div>
+                </div>
+            </article>
+
+            <article class="hotel-card"
+                data-name="green valley retreat"
+                data-city="munnar"
+                data-rating="4.5"
+                data-price="2800">
+                <img src="https://images.unsplash.com/photo-1445019980597-93fa8acb246c?auto=format&fit=crop&w=900&q=80"
+                     alt="Peaceful hotel surrounded by greenery">
+                <div class="hotel-info">
+                    <h3>Green Valley Retreat</h3>
+                    <p class="location">📍 Munnar, Kerala</p>
+                    <p class="rating">★ 4.5 / 5</p>
+                    <p class="amenities">🌿 Nature Views · ☕ Café · 📶 Free Wi-Fi</p>
+                    <div class="price-row">
+                        <p class="price">₹2,800<small>per night · sample price</small></p>
+                        <button class="details-btn" type="button"
+                            data-hotel="Green Valley Retreat">Details</button>
+                    </div>
+                </div>
+            </article>
+
+            <article class="hotel-card"
+                data-name="skyline luxury suites"
+                data-city="dubai"
+                data-rating="4.9"
+                data-price="8500">
+                <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=900&q=80"
+                     alt="Modern luxury hotel building">
+                <div class="hotel-info">
+                    <h3>Skyline Luxury Suites</h3>
+                    <p class="location">📍 Dubai, UAE</p>
+                    <p class="rating">★ 4.9 / 5</p>
+                    <p class="amenities">🏙️ City View · 🏊 Pool · 🍽️ Fine Dining</p>
+                    <div class="price-row">
+                        <p class="price">₹8,500<small>per night · sample price</small></p>
+                        <button class="details-btn" type="button"
+                            data-hotel="Skyline Luxury Suites">Details</button>
+                    </div>
+                </div>
+            </article>
+
+            <article class="hotel-card"
+                data-name="paris garden hotel"
+                data-city="paris"
+                data-rating="4.6"
+                data-price="7200">
+                <img src="https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?auto=format&fit=crop&w=900&q=80"
+                     alt="Stylish hotel interior in Paris">
+                <div class="hotel-info">
+                    <h3>Paris Garden Hotel</h3>
+                    <p class="location">📍 Paris, France</p>
+                    <p class="rating">★ 4.6 / 5</p>
+                    <p class="amenities">🌷 Garden · 🥐 Breakfast · 📶 Free Wi-Fi</p>
+                    <div class="price-row">
+                        <p class="price">₹7,200<small>per night · sample price</small></p>
+                        <button class="details-btn" type="button"
+                            data-hotel="Paris Garden Hotel">Details</button>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+    </main>
+
+    <dialog id="hotelDialog">
+        <h2 id="dialogTitle">Hotel Details</h2>
+        <p id="dialogLocation"></p>
+        <p id="dialogRating"></p>
+        <p id="dialogPrice"></p>
+        <p>These details and prices are sample information for this frontend demo. No booking is made.</p>
+        <button class="close-btn" id="closeDialog" type="button">Close</button>
+    </dialog>
+
+    <footer>
+        <p><strong>✦ Tripora</strong></p>
+        <p>Your journey starts here.</p>
+        <p><a href="tripora.html">Back to Home</a> ·
+           <a href="destinations.html">Explore Destinations</a></p>
+    </footer>
+
+    <script>
+        const searchForm = document.getElementById("searchForm");
+        const destinationSearch = document.getElementById("destinationSearch");
+        const ratingSearch = document.getElementById("ratingSearch");
+        const maxPrice = document.getElementById("maxPrice");
+        const sortPrice = document.getElementById("sortPrice");
+        const hotelGrid = document.getElementById("hotelGrid");
+
+        const dialog = document.getElementById("hotelDialog");
+        const dialogTitle = document.getElementById("dialogTitle");
+        const dialogLocation = document.getElementById("dialogLocation");
+        const dialogRating = document.getElementById("dialogRating");
+        const dialogPrice = document.getElementById("dialogPrice");
+
+        function filterHotels() {
+            const destination = destinationSearch.value.trim().toLowerCase();
+            const minRating = Number(ratingSearch.value);
+            const priceLimit = maxPrice.value === ""
+                ? Infinity
+                : Number(maxPrice.value);
+
+            const cards = Array.from(
+                hotelGrid.querySelectorAll(".hotel-card")
+            );
+
+            cards.forEach(card => {
+                const name = card.dataset.name;
+                const city = card.dataset.city;
+                const rating = Number(card.dataset.rating);
+                const price = Number(card.dataset.price);
+
+                const matchesDestination =
+                    name.includes(destination) || city.includes(destination);
+
+                const matchesRating = rating >= minRating;
+                const matchesPrice = price <= priceLimit;
+
+                card.hidden = !(
+                    matchesDestination &&
+                    matchesRating &&
+                    matchesPrice
+                );
+            });
+
+            const visibleCards = cards.filter(card => !card.hidden);
+
+            if (sortPrice.value === "low") {
+                visibleCards.sort(
+                    (a, b) => Number(a.dataset.price) - Number(b.dataset.price)
+                );
+            } else if (sortPrice.value === "high") {
+                visibleCards.sort(
+                    (a, b) => Number(b.dataset.price) - Number(a.dataset.price)
+                );
+            }
+
+            visibleCards.forEach(card => hotelGrid.appendChild(card));
+
+            let emptyMessage = hotelGrid.querySelector(".empty");
+
+            if (visibleCards.length === 0) {
+                if (!emptyMessage) {
+                    emptyMessage = document.createElement("p");
+                    emptyMessage.className = "empty";
+                    emptyMessage.textContent =
+                        "No hotels match your search. Try different filters.";
+                    hotelGrid.appendChild(emptyMessage);
+                }
+            } else if (emptyMessage) {
+                emptyMessage.remove();
+            }
+        }
+
+        searchForm.addEventListener("submit", function(event) {
+            event.preventDefault();
+            filterHotels();
+            document.getElementById("hotels").scrollIntoView({
+                behavior: "smooth"
+            });
+        });
+
+        ratingSearch.addEventListener("change", filterHotels);
+        maxPrice.addEventListener("input", filterHotels);
+        sortPrice.addEventListener("change", filterHotels);
+
+        hotelGrid.addEventListener("click", function(event) {
+            const button = event.target.closest(".details-btn");
+
+            if (!button) return;
+
+            const card = button.closest(".hotel-card");
+
+            dialogTitle.textContent = card.dataset.name
+                .replace(/\b\w/g, letter => letter.toUpperCase());
+
+            dialogLocation.textContent =
+                card.querySelector(".location").textContent;
+
+            dialogRating.textContent =
+                card.querySelector(".rating").textContent;
+
+            dialogPrice.textContent =
+                card.querySelector(".price").childNodes[0].textContent.trim()
+                + " per night (sample price)";
+
+            dialog.showModal();
+        });
+
+        document.getElementById("closeDialog").addEventListener("click", function() {
+            dialog.close();
+        });
+    </script>
+
+</body>
+</html>
